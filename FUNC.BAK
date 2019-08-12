@@ -1,0 +1,633 @@
+fstream f1,f2;
+int retkey(int x,int y,int r,int height);
+int t,p=-1,qty[100];
+long int sum=0;
+//-------------------------CLASS FOR BOOK-------------------------------
+
+class book
+{
+	
+        int id,price,year,copies;
+	char fname[20],sname[20],title[20],pub[30],description[50],genre[10];
+
+public:
+	void input();
+	void output();
+	char* ret_title();
+	int matchgenre(char* n);
+	int matchtitle(char* n1);
+	int matchauthor(char*n,char* m);
+	int matchpublication(char* n2);
+	void rettitle();
+	void showcart(int i);
+	void copydec(int a);
+}s,m[100];
+
+void book::showcart(int i)
+{
+	gotoxy(2,6+i);
+	cout<<i+1;
+	gotoxy(13,6+i);
+	cout<<title;
+	gotoxy(54,6+i);
+	cout<<price;
+	gotoxy(67,6+i);
+	cout<<qty[i];
+	sum+=qty[i]*price;
+	
+}
+
+void book::rettitle()
+{
+	cout<<title;
+}
+
+char* book::ret_title()
+{
+	return title;
+}
+
+int book::matchpublication(char* n)
+{
+	int c;
+	c=strcmpi(n,pub);
+	return c;
+}
+
+void book::copydec(int a);
+{
+	copies-=a;
+}
+
+int book::matchauthor(char*n,char* m)
+{
+	int c,k;
+	c=strcmpi(n,fname);
+	k=strcmpi(m,sname);
+	if(c==0&&k==0)
+		return 0;
+	else
+		return 1;
+}
+
+int book::matchgenre(char* n)
+{
+	int c;
+	c=strcmpi(n,genre);
+	return c;
+}
+
+int book::matchtitle(char* n1)
+{
+	int c;
+	c=strcmpi(n1,title);
+	return c;
+}
+
+void book::input()                          //input
+{
+	cout<<"enter title               : ";
+	gets(title);
+	cout<<"enter book id             : ";
+	cin>>id;
+	cout<<"enter auther's first name : ";
+	gets(fname);
+	cout<<"enter author's last name  : ";
+	gets(sname);
+	cout<<"enter the publication     : ";
+	gets(pub);
+	cout<<"enter genre               : ";
+	gets(genre);
+	cout<<"enter price               : ";
+	cin>>price;
+	cout<<"enter publishing year     : ";
+	cin>>year;
+	cout<<"enter number of copies    : ";
+	cin>>copies;
+	cout<<"book's desription         : ";
+	gets(description);
+	f1.open("books.dat",ios::binary|ios::out|ios::app);
+	f1.write((char*)&s,sizeof(s));
+	f1.close();
+}
+
+void book::output()                          //output
+{
+	  	    cout<<"title              : "<<title<<endl
+			<<"book id            : "<<id<<endl
+			<<"author's name      : "<<fname<<" "<<sname<<endl
+			<<"genre              : "<<genre<<endl
+			<<"price              : "<<price<<endl
+			<<"publication        : "<<pub<<endl
+			<<"publishing year    : "<<year<<endl
+			<<"number of copies   : "<<copies<<endl
+			<<"book's desription  : "<<description<<endl;
+}
+
+//--------------------------CLASS ENDS-----------------------------------
+
+//------------------------------CLASS FOR USERNAME-------------------------
+class user
+{
+	char f_name[20],l_name[20],password[20],usernm[20],mob[11];
+public:
+	void create_acc();
+	void show_acc();
+	int matchuser(char* n);
+	void retusername();
+	char* retpass();
+	void change(int c);
+}u;
+
+void user::retusername()
+{
+	cout<<f_name<<" "<<l_name;
+}
+
+char* user::retpass()
+{
+	return password;
+}
+
+int user::matchuser(char* n)
+{
+	int c;
+	c=strcmpi(n,usernm);
+	return c;
+}
+
+void user::create_acc()
+{
+	cout<<"\t\t\tCREATING ACCOUNT\n";
+	cout<<"\n\tFirst name: ";
+	gets(f_name);
+	cout<<"\tLast name: ";
+	gets(l_name);
+	cout<<"\n\tMobile: ";
+	cin>>mob;
+	cout<<"\n\tUsername : ";
+	gets(usernm);
+	cout<<"\n\tSet Password : ";
+	gets(password);
+	f2.open("accounts.dat",ios::binary|ios::out|ios::app);
+	f2.write((char*)&u,sizeof(u));
+	f2.close();
+}
+
+void user::show_acc()
+{
+	cout<<"\t\t\tACCOUNT"<<endl<<endl
+	       <<"\tfirst name            : "<<f_name<<endl
+	       <<"\tlast name             : "<<l_name<<endl
+	       <<"\tMobile                : "<<mob<<endl
+	       <<"\tUsername  	          : "<<usernm<<endl
+	       <<"\tPassword              : "<<password;
+}
+
+void user::change(int c)
+{
+	clrscr();
+	cout<<"\n\n\n\n";
+	switch(c)
+	{
+		case 1: cout<<"\t\tfirst name           : "<<f_name<<endl
+   			    <<"\t\tre-enter first name  : ";
+			gets(f_name);			
+			break;
+		case 2: cout<<"\t\tlast name            : "<<l_name<<endl
+   			    <<"\t\tre-enter last name   : ";
+			gets(l_name);
+			break;
+		case 3: cout<<"\t\tmobile no.           : "<<mob<<endl
+   			    <<"\t\tre-enter mobile no.  : ";
+			gets(mob);
+			break;
+		case 4: cout<<"\t\tusername             : "<<usernm<<endl
+   			    <<"\t\tre-enter username    : ";
+			gets(usernm);
+			break;
+		case 5: cout<<"\t\tpassword             : "<<password<<endl
+   			    <<"\t\tre-enter password    : ";
+			gets(password);
+			break;
+	
+	}	
+}
+
+//------------------------------CLASS ENDS-----------------------------
+
+//-----------------------------CLASS FOR DATE---------------------------
+
+class dat
+{
+	int dd,mm,yy;
+public:
+	void dat_inp();
+	void dat_out();
+}d;
+
+
+void dat::dat_inp()
+{
+	h:
+	cout<<" date";
+	cin>>dd;
+	cout<<" month";
+	cin>>mm;
+	if((dd>31)||(dd<1)||(mm>12)||(mm<1))
+	{
+		cout<<"date is invalid";
+		goto h;
+	}
+	cout<<"year";
+	cin>>yy;
+}
+
+
+void dat::dat_out()
+{
+	cout<<dd<<"/"<<mm<<"/"<<yy;
+}
+
+//---------------------------FUNCTIONS START HERE--------------------
+
+
+void enquiry()
+{
+		clrscr();
+		cout<<"\n\t\t\tTERMS AND CODITIONS"<<endl
+				<<"1. ---- will send the products to the customer as soon as practicable after it"<<endl
+				<<"   receives payment for the product"<<endl<<endl
+				<<"2. If the product is defective, customer has to give the details and return it"<<endl
+				<<"   within 2 days of purchase. your product will:-"<<endl
+				<<"\teither be replaced "<<endl
+				<<"\tor money will be refuded"<<endl<<endl
+				<<"3. The customer agrees that the content which the customer accesses, views or "<<endl
+				<<"   downloads and the software used to create it remains the intellectual"<<endl
+				<<"   property of ---"<<endl<<endl
+				<<"4. The customer's personal details will not be sold or leased to any third party"<<endl
+				<<"\nPRESS ANY KEY TO GO BACK "<<endl;
+		getch();
+}
+
+int password(char* c)
+{
+	char ch[20]="              ";
+	int i=0;
+	cout<<"enter password : ";
+	while(1)
+	{
+		ch[i]=getch();
+		if(ch[i]!=8&&ch[i]!=13)
+		{
+			cout<<"*";
+			i++;
+		}
+		if(ch[i]==13)
+		{
+			ch[i]='\0';
+			break;
+		}
+		else if(ch[i]==8)
+		{
+			cout<<"\b";
+			clreol();
+			ch[i]='~';
+			i--;
+		}
+	}
+	if(strcmp(ch,c)==0)
+			return 0;
+	else
+			return 1;
+}
+
+
+int chkaccess()
+{
+		int c;
+		while(1)
+		{
+			clrscr();
+			cout<<"\n\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl
+			<<"\n\t\t\t\tWELCOME\n"
+			<<"\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+			delay(200);
+			cout<<"\n\n\n\n\n\t\t\t\tenter as guest "
+				<<"\n\n\t\t\t\tenter as administrator "
+				<<"\n\n\t\t\t\texit program";
+			c=retkey(31,10,3,9);
+			switch(c)
+			{
+				case 1: c=1;
+					return c;
+				case 3: int q,n=1;
+					char nm[20];
+					clrscr();
+					gotoxy(20,10);
+					cout<<"enter username : ";
+					gets(nm);
+					if(strcmpi("admin",nm)==0)
+						n=0;
+					gotoxy(20,12);
+					q=password("password");
+					if(q==0&&n==0)
+					{
+						c=2;
+						clrscr();
+						cout<<"\n\n\n\t\t\tWELCOME ADMIN";
+						delay(700);
+						return c;
+					}
+					else
+					{
+						cout<<"\ninvalid credentials";
+						getch();
+					}
+					break;
+				case 5:exit(0);
+			}
+		}
+}
+
+void search(char* wd,int x,int t)
+{
+	while(1)
+	{
+		int n,flag=0,a=0,b[20],i=0,c;
+		f1.open("books.dat",ios::binary|ios::in);
+		clrscr();
+		while(f1.read((char*)&s,sizeof(s)))
+		{
+				if(x==1)
+					n=s.matchtitle(wd);
+				else if(x==0)
+					n=s.matchgenre(wd);
+				else if(x==2)
+					n=s.matchpublication(wd);
+				if(n==0)
+				{
+						cout<<"\n\n\t\t"<<flag+1<<". ";
+						s.rettitle();
+						flag++;
+						b[i]=a;
+						i++;
+				}
+				a++;
+		}
+		cout<<"\n\n\t\t"<<"  #go back";
+		f1.close();
+		if(flag==0)
+		{
+				clrscr();
+				cout<<"\nno books found";
+				break;
+		}
+		else
+		{
+				c=retkey(9,3,i+1,2);
+				if(c==((2*(i+1))-1))
+					break;
+				clrscr();
+				i=0;
+				f1.open("books.dat",ios::binary|ios::in);
+				while(f1.read((char*)&s,sizeof(s)))
+				{
+					if(i==b[((c+1)/2)-1])
+					{
+						s.output();
+						if(t==1)
+						{
+							int z;
+							cout<<"\n\t\tadd to cart"
+		   					        <<"\n\n\t\tgo back";
+							z=retkey(10,11,2,10);
+							if(z==1)
+							{
+								if(p>=0)
+								{
+									gotoxy(45,11);
+									cout<<"enter quantity : ";
+									cin>>qty[p];
+									m[p]=s;
+									p++;
+								}
+								else
+								{
+									clrscr();
+									cout<<"\n\n\tTO BUY A BOOK, YOU HAVE TO LOGIN FIRST";
+									getch();
+								}
+							}
+							else if(z==3)
+							{
+								break;
+							}
+						}		
+						break;
+					}
+					i++;
+						
+				}
+				if(t==2)
+					getch();
+				f1.close();
+		}
+	}
+}
+
+void search(char* wd,char*wd1)
+{
+		int n,flag=0,a=0,b[20],i=0,c;
+		f1.open("books.dat",ios::binary|ios::in);
+		clrscr();
+		while(f1.read((char*)&s,sizeof(s)))
+		{
+				n=s.matchauthor(wd,wd1);
+				if(n==0)
+				{
+						cout<<endl<<flag+1<<". ";
+						s.rettitle();
+						flag++;
+						b[i]=a;
+						i++;
+				}
+				a++;
+		}
+		f1.close();
+		if(flag==0)
+		{
+				clrscr();
+				cout<<"\nno books found";
+				getch();
+		}
+		else
+		{
+				cout<<"\n\nenter number to get info for the book : ";
+				cin>>c;
+				getch();
+				clrscr();
+				i=0;
+				f1.open("books.dat",ios::binary|ios::in);
+				while(f1.read((char*)&s,sizeof(s)))
+				{
+					if(i==b[c-1])
+					{
+						s.output();
+						break;
+					}
+					i++;
+				}
+				getch();
+				f1.close();
+		}
+}
+
+
+int searchpass(char* wd)
+{
+		int n=0,flag=0,c;
+		char q[20];
+		f2.open("accounts.dat",ios::binary|ios::in);
+		while(f2.read((char*)&u,sizeof(u)))
+		{
+				n=u.matchuser(wd);
+				if(n==0)
+				{
+					flag=1;
+					break;
+				}
+		}
+		f2.close();
+		if(flag==0)
+		{
+			c=password(wd);
+			getch();
+			return 0;
+		}
+		else
+		{
+			strcpy(q,u.retpass());
+			c=password(q);
+			getch();
+			if(c==0)
+				return 1;
+			else
+				return 0;
+		}
+}
+
+void load()
+{
+	clrscr();
+	gotoxy(30,22);
+	cout<<"~~~LOADING~~~ ";
+	delay(200);
+	cout<<".";
+	delay(200);
+	cout<<".";
+	delay(200);
+	cout<<".";
+	delay(200);
+	clrscr();
+}
+
+void cursor(int x,int y,int a)
+{
+	gotoxy(x,a);
+	cout<<" ";
+	gotoxy(x,y);
+	cout<<">";
+}
+
+int retkey(int x,int y,int r,int height)
+{
+	int key=0,row=1,a=y;
+	while(key!=7181)
+	{
+		cursor(x,y,a);
+		a=y;
+		key=bioskey(0);
+		switch(key)
+		{
+			case 7181:return row;
+			case 20480:row+=2;
+			 	  if(row>=(2*r)-1)
+					row=(2*r)-1;
+				   y=height+row;
+				   cursor(x,y,a);
+				   break;
+			case 18432:row-=2;
+			 	   if(row<=1)
+					row=1;
+				   y=height+row;
+				   cursor(x,y,a);
+				   break;		
+			  
+		}
+	}
+}
+
+void user_info()
+{
+	int flag1=0,c;
+	f2.open("accounts.dat",ios::binary|ios::in);
+	f2.seekg(0,ios::end);
+	cout<<"\n\n\t No. of accounts are:  "<<f2.tellg()/sizeof(u)<<"\n\n\n\t\t\tLIST \n";
+	f2.seekg(0,ios::beg);
+	while(f2.read((char*)&u,sizeof(u)))
+	{
+		cout<<endl<<"\t"<<flag1+1<<". ";
+		u.retusername();
+		flag1++;
+	}
+	f2.close();
+	if(flag1==0)
+	{
+			clrscr();
+			cout<<"\nno user found";
+			getch();
+	}
+	else
+	{
+			cout<<"\n\nenter number to get info for the user : ";
+			cin>>c;
+			clrscr();
+			int i=1;
+			f2.open("accounts.dat",ios::binary|ios::in);
+			while(f2.read((char*)&u,sizeof(u)))
+			{
+				if(i==c)
+				{
+					u.show_acc();
+					break;
+				}
+				i++;
+			}
+			getch();
+			f2.close();
+	}
+}
+
+void show_menu(int c)
+{
+	clrscr();
+	switch(c)
+	{
+		case 1: cout<<"\n\t\t---------MYSTERY----------\n\n";
+			search("mystery",0,t);
+			break;
+		case 3: cout<<"\n\t\t---------FANTASY----------\n\n";
+			search("fantasy",0,t);
+			break;
+		case 5: cout<<"\n\t\t---------ROMANCE----------\n\n";
+			search("romance",0,t);
+			break;
+		case 7: cout<<"\n\t\t---------SCIENCE-FICTION----------\n\n";
+			search("science fiction",0,t);
+			break;
+	}
+	getch();
+}
+
+//------------------------------FUNCTIONS ENDS------------------------------
